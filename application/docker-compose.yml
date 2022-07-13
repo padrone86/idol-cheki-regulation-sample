@@ -1,14 +1,33 @@
 version: '3.7'
 services:
+  api:
+    container_name: api
+    build: ./api/
+    ports:
+      - "8080:80"
+    volumes:
+      - ./api/entrypoint.sh:/tmp/entrypoint.sh
+    environment:
+      AWS_REGION: ap-northeast-1
+      AWS_ACCESS_KEY_ID: idol-cheki
+      AWS_SECRET_ACCESS_KEY: idol-cheki
+    entrypoint: /tmp/entrypoint.sh
+    depends_on:
+      - dynamodb-dev
+
   dynamodb-dev:
     image: amazon/dynamodb-local:latest
     container_name: dynamodb-dev
     ports:
       - "8011:8000"
+    volumes:
+      - dynamodb:/home/dynamodblocal
+    command: -jar DynamoDBLocal.jar -sharedDb -dbPath . -optimizeDbBeforeStartup
     environment:
       AWS_REGION: ap-northeast-1
-      AWS_ACCESS_KEY_ID: local
-      AWS_SECRET_ACCESS_KEY: local
+      AWS_ACCESS_KEY_ID: idol-cheki
+      AWS_SECRET_ACCESS_KEY: idol-cheki
+ 
   dynamodb-admin-dev:
     image: aaronshaf/dynamodb-admin:latest
     container_name: dynamodb-admin-dev
@@ -17,5 +36,11 @@ services:
     environment:
       DYNAMO_ENDPOINT: dynamodb-dev:8000
       AWS_REGION: ap-northeast-1
-      AWS_ACCESS_KEY_ID: local
-      AWS_SECRET_ACCESS_KEY: local
+      AWS_ACCESS_KEY_ID: idol-cheki
+      AWS_SECRET_ACCESS_KEY: idol-cheki
+    depends_on:
+      - dynamodb-dev
+
+volumes:
+  dynamodb:
+    driver: local

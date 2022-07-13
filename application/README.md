@@ -23,6 +23,9 @@ Default output format [None]: json
 
 ```sh
 $ docker compose up -d
+
+# イメージの再ビルドをしたいとき
+$ docker compose up --build
 ```
 
 ##### 疎通確認
