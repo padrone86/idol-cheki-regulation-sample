@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  dynamodb-dev:
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb-dev
+    ports:
+      - "8011:8000"
+    environment:
+      AWS_REGION: ap-northeast-1
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+  dynamodb-admin-dev:
+    image: aaronshaf/dynamodb-admin:latest
+    container_name: dynamodb-admin-dev
+    ports:
+      - "8013:8001"
+    environment:
+      DYNAMO_ENDPOINT: dynamodb-dev:8000
+      AWS_REGION: ap-northeast-1
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
