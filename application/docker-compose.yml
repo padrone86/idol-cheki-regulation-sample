@@ -6,38 +6,10 @@ services:
     ports:
       - "8080:8080"
     environment:
-      AWS_REGION: ap-northeast-1
-      AWS_ACCESS_KEY_ID: idol-cheki
-      AWS_SECRET_ACCESS_KEY: idol-cheki
-    depends_on:
-      - dynamodb-dev
-
-  dynamodb-dev:
-    image: amazon/dynamodb-local:latest
-    container_name: dynamodb-dev
-    ports:
-      - "8011:8000"
-    volumes:
-      - dynamodb:/home/dynamodblocal
-    command: -jar DynamoDBLocal.jar -sharedDb -dbPath . -optimizeDbBeforeStartup
-    environment:
-      AWS_REGION: ap-northeast-1
-      AWS_ACCESS_KEY_ID: idol-cheki
-      AWS_SECRET_ACCESS_KEY: idol-cheki
- 
-  dynamodb-admin-dev:
-    image: aaronshaf/dynamodb-admin:latest
-    container_name: dynamodb-admin-dev
-    ports:
-      - "8013:8001"
-    environment:
       DYNAMO_ENDPOINT: dynamodb-dev:8000
-      AWS_REGION: ap-northeast-1
       AWS_ACCESS_KEY_ID: idol-cheki
       AWS_SECRET_ACCESS_KEY: idol-cheki
+      AWS_DEFAULT_REGION: ap-northeast-1
+      TABLE_NAME: idol-groups
     depends_on:
       - dynamodb-dev
-
-volumes:
-  dynamodb:
-    driver: local
