@@ -1,6 +1,18 @@
 # アプリケーション
 
-## ローカル開発用コンテナ環境
+## ローカルデモ用コンテナ環境
+
+### 構築コンテナ
+
+- frontend
+  - TBD
+- api
+  - `api/` ディレクトリに実装したイメージをコンテナ化して起動
+- dynamodb-demo
+  - デモ用の DynamoDB クローン
+  - 開発環境の DynamoDB と永続データを共有している
+- dynamodb-admin-demo
+  - GUI の DynamoDB 管理ツール
 
 ### 前提
 
