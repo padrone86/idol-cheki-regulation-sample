@@ -1,22 +1,8 @@
 version: '3.7'
 services:
-  api:
-    container_name: api
-    build: ./api/
-    ports:
-      - "8080:8080"
-    environment:
-      DYNAMO_ENDPOINT: dynamodb-demo:8000
-      AWS_ACCESS_KEY_ID: idol-cheki
-      AWS_SECRET_ACCESS_KEY: idol-cheki
-      AWS_DEFAULT_REGION: ap-northeast-1
-      TABLE_NAME: idol-groups
-    depends_on:
-      - dynamodb-demo
-
-  dynamodb-demo:
+  dynamodb-dev:
     image: amazon/dynamodb-local:latest
-    container_name: dynamodb-demo
+    container_name: dynamodb-dev
     ports:
       - "8011:8000"
     volumes:
@@ -27,18 +13,18 @@ services:
       AWS_ACCESS_KEY_ID: idol-cheki
       AWS_SECRET_ACCESS_KEY: idol-cheki
  
-  dynamodb-admin-demo:
+  dynamodb-admin-dev:
     image: aaronshaf/dynamodb-admin:latest
-    container_name: dynamodb-admin-demo
+    container_name: dynamodb-admin-dev
     ports:
       - "8013:8001"
     environment:
-      DYNAMO_ENDPOINT: dynamodb-demo:8000
+      DYNAMO_ENDPOINT: dynamodb-dev:8000
       AWS_REGION: ap-northeast-1
       AWS_ACCESS_KEY_ID: idol-cheki
       AWS_SECRET_ACCESS_KEY: idol-cheki
     depends_on:
-      - dynamodb-demo
+      - dynamodb-dev
 
 volumes:
   dynamodb:
