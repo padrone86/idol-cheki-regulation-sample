@@ -11,5 +11,9 @@ uvicorn = "*"
 autopep8 = "*"
 flake8 = "*"
 
+[scripts]
+server = "uvicorn main:app --port=8080 --host=0.0.0.0"
+local_server = "uvicorn main:app --reload --port=8080 --host=0.0.0.0"
+
 [requires]
 python_version = "3.9"

@@ -4,14 +4,11 @@ services:
     container_name: api
     build: ./api/
     ports:
-      - "8080:80"
-    volumes:
-      - ./api/entrypoint.sh:/tmp/entrypoint.sh
+      - "8080:8080"
     environment:
       AWS_REGION: ap-northeast-1
       AWS_ACCESS_KEY_ID: idol-cheki
       AWS_SECRET_ACCESS_KEY: idol-cheki
-    entrypoint: /tmp/entrypoint.sh
     depends_on:
       - dynamodb-dev
 
